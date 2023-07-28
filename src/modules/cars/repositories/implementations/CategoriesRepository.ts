@@ -14,7 +14,7 @@ class CategoriesRepository implements ICategoriesRepository {
     this.categories = [];
   }
 
-  public static geInstance(): CategoriesRepository {
+  public static getInstance(): CategoriesRepository {
     if (!CategoriesRepository.INSTANCE) {
       CategoriesRepository.INSTANCE = new CategoriesRepository();
     }
