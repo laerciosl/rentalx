@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  database_rentalx:
+    image: postgres
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    restart: always
+    privileged: true
+    tty: true    
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
+    environment:
+      - POSTGRES_USER=${POSTGRES_DB_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ${POSTGRES_DB_VOLUME}:/data/postgres
+  app:
+    build: .
+    container_name: rentalx
+    env_file:
+      - .env
+    ports:
+      - ${RENTX_APP_PORT}:${RENTX_APP_PORT}
+      - ${RENTX_APP_PORT_DEBUG}:${RENTX_APP_PORT_DEBUG}
+    volumes:
+      - ${RENTX_APP_VOLUME}:/usr/app
+    links:
+      - database_rentalx
+    depends_on:
+      - database_rentalx
+
+volumes:
+  pgdata:
+    driver: local
