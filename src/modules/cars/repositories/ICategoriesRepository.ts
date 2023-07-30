@@ -1,5 +1,5 @@
 // Contrato
-import { Category } from "../model/Category";
+import { Category } from "../entities/Category";
 
 // DTO => Interface Transfer Object
 interface ICreateCategoryDTO {
