@@ -5,10 +5,17 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "docker": "docker-compose up --no-recreate"
+    "create-network": "docker network create rentalx-network",
+    "up": "docker-compose up --no-recreate",
+    "stop": "docker-compose stop",
+    "prune": "docker system prune",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "migration-run": "ts-node typeorm migration:run ./src/database/",
+    "migration-revert": "ts-node ./node_modules/typeorm/cli migration:revert ./src/database/"
   },
   "dependencies": {
     "csv-parse": "^5.4.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "multer": "^1.4.5-lts.1",
     "pg": "^8.11.1",

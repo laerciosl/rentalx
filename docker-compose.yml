@@ -4,9 +4,7 @@ services:
   database_rentalx:
     image: postgres
     container_name: ${POSTGRES_CONTAINER_NAME}
-    restart: always
-    privileged: true
-    tty: true    
+    restart: always  
     env_file:
       - .env
     ports:
@@ -17,6 +15,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - ${POSTGRES_DB_VOLUME}:/data/postgres
+    networks:
+      - rentalx-network
   app:
     build: .
     container_name: rentalx
@@ -27,6 +27,8 @@ services:
       - ${RENTX_APP_PORT_DEBUG}:${RENTX_APP_PORT_DEBUG}
     volumes:
       - ${RENTX_APP_VOLUME}:/usr/app
+    networks:
+      - rentalx-network
     links:
       - database_rentalx
     depends_on:
@@ -35,3 +37,7 @@ services:
 volumes:
   pgdata:
     driver: local
+
+networks:
+  rentalx-network:
+    external: true
