@@ -11,6 +11,7 @@ class UsersRepository implements IUsersRepository {
   constructor() {
     this.repository = connectDB.getRepository(User);
   }
+
   async create({
     name,
     email,
@@ -25,6 +26,11 @@ class UsersRepository implements IUsersRepository {
     });
 
     await this.repository.save(user);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const user = this.repository.findOne({ where: { email } });
+    return user;
   }
 }
 
