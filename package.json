@@ -10,7 +10,7 @@
     "stop": "docker-compose stop",
     "prune": "docker system prune",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "migration-run": "ts-node typeorm migration:run ./src/database/",
+    "migration-run": "ts-node ./node_modules/typeorm/cli migration:run ./src/database/",
     "migration-revert": "ts-node ./node_modules/typeorm/cli migration:revert ./src/database/"
   },
   "dependencies": {

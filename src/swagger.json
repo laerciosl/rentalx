@@ -40,7 +40,7 @@
           "201": {
             "description": "Created"
           },
-          "500": {
+          "400": {
             "description": "Category already exists!"
           }
         }
@@ -106,7 +106,7 @@
           "201": {
             "description": "Created"
           },
-          "500": {
+          "400": {
             "description": "Category already exists!"
           }
         }
@@ -130,7 +130,7 @@
           "201": {
             "description": "Created"
           },
-          "500": {
+          "400": {
             "description": "Specification already exists!"
           }
         }
@@ -164,6 +164,146 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create a new account",
+        "description": "Create a new account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "driver_license": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Name sample",
+                  "email": "email@email.com",
+                  "password": "123456",
+                  "driver_license": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists!"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Upload avatar account",
+        "description": "Upload avatar account",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "User doesn't exists!"
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Authenticate user",
+        "description": "Authenticate user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "email@email.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "user": {
+                      "name": "Fulano de tal",
+                      "email": "email@email.com"
+                    },
+                    "token": "laksdfojowfkefowjfaslkfdowjlfkjawoiefjaklsd"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists!"
           }
         }
       }
