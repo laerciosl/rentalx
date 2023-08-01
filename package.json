@@ -4,14 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "create-network": "docker network create rentalx-network",
     "up": "docker-compose up --no-recreate",
     "stop": "docker-compose stop",
     "prune": "docker system prune",
-    "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "migration-run": "ts-node ./node_modules/typeorm/cli migration:run ./src/database/",
-    "migration-revert": "ts-node ./node_modules/typeorm/cli migration:revert ./src/database/",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "migration-run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run ./src/database/",
+    "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert ./src/database/",
     "test": "jest"
   },
   "dependencies": {
@@ -50,6 +50,7 @@
     "prettier": "^3.0.0",
     "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"
   }
 }

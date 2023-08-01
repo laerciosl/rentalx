@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
-import { AppError } from "../errors/AppError";
-import { UsersRepository } from "../modules/accounts/repositories/implementations/UsersRepository";
+import { AppError } from "@errors/AppError";
+import { UsersRepository } from "@modules/accounts/repositories/implementations/UsersRepository";
 
 interface IPayload {
   sub: string;
@@ -24,7 +24,7 @@ export async function ensureAuthenticated(
   try {
     const { sub: userId } = verify(
       token,
-      process.env.SECRET_PRIVATE_KEY,
+      process.env.SECRET_PRIVATE_KEY!,
     ) as IPayload;
 
     const usersRepository = new UsersRepository();

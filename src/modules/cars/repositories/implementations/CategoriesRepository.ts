@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Repository } from "typeorm";
 
-import connectDB from "../../../../database";
-import { Category } from "../../entities/Category";
+import connectDB from "@database/index";
+import { Category } from "@modules/cars/entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from "../ICategoriesRepository";
+} from "@modules/cars/repositories/ICategoriesRepository";
 
 class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
@@ -32,9 +32,9 @@ class CategoriesRepository implements ICategoriesRepository {
     return categories;
   }
 
-  async findByName(name: string): Promise<Category | null> {
+  async findByName(name: string): Promise<Category> {
     const category = await this.repository.findOne({ where: { name } });
-    return category;
+    return category!;
   }
 }
 
