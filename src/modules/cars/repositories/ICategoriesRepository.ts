@@ -1,5 +1,5 @@
 // Contrato
-import { Category } from "@modules/cars/entities/Category";
+import { Category } from "@modules/cars/infra/typeorm/entities/Category";
 
 // DTO => Interface Transfer Object
 interface ICreateCategoryDTO {

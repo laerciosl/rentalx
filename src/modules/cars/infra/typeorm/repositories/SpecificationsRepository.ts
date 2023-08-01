@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 
-import connectDB from "@database/index";
-import { Specification } from "@modules/cars/entities/Specification";
+import connectDB from "@shared/infra/typeorm/index";
+import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,

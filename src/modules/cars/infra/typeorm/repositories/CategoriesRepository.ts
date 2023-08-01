@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Repository } from "typeorm";
 
-import connectDB from "@database/index";
-import { Category } from "@modules/cars/entities/Category";
+import connectDB from "@shared/infra/typeorm/index";
+import { Category } from "@modules/cars/infra/typeorm/entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
