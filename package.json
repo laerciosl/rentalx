@@ -11,7 +11,8 @@
     "prune": "docker system prune",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration-run": "ts-node ./node_modules/typeorm/cli migration:run ./src/database/",
-    "migration-revert": "ts-node ./node_modules/typeorm/cli migration:revert ./src/database/"
+    "migration-revert": "ts-node ./node_modules/typeorm/cli migration:revert ./src/database/",
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.3",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/multer": "^1.4.7",
     "@types/swagger-ui-express": "^4.1.3",
@@ -44,7 +46,9 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-import-helpers": "^1.3.1",
     "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.6.2",
     "prettier": "^3.0.0",
+    "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6"
   }
