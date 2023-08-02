@@ -10,8 +10,9 @@
     "stop": "docker-compose stop",
     "prune": "docker system prune",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "migration-run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run ./src/database/",
-    "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert ./src/database/",
+    "migration-create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create ./src/shared/infra/typeorm/migrations/",
+    "migration-run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run -d ./src/shared/infra/typeorm/index.ts",
+    "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert  -d ./src/shared/infra/typeorm/index.ts",
     "test": "jest"
   },
   "dependencies": {
