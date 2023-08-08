@@ -1,18 +1,14 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Repository } from "typeorm";
 
-import connectDB from "@shared/infra/typeorm/index";
 import { Category } from "@modules/cars/infra/typeorm/entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
 } from "@modules/cars/repositories/ICategoriesRepository";
+import connectDB from "@shared/infra/typeorm/index";
 
 class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
-
-  // eslint-disable-next-line no-use-before-define
-  private static INSTANCE: CategoriesRepository;
 
   constructor() {
     this.repository = connectDB.getRepository(Category);

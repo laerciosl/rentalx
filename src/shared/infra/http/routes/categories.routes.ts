@@ -1,10 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { Router } from "express";
 import multer from "multer";
+import { Router } from "express";
 
 import { CreateCategoryController } from "@modules/cars/useCases/createCategory/CreateCategoryController";
 import { ImportCategoriesController } from "@modules/cars/useCases/importCategories/ImportCategoriesController";
 import { ListCategoriesController } from "@modules/cars/useCases/listCategories/ListCategoriesController";
+
+import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const categoriesRoutes = Router();
 
@@ -16,7 +18,12 @@ const createCategoryController = new CreateCategoryController();
 const importCategoriesController = new ImportCategoriesController();
 const listCategoriesController = new ListCategoriesController();
 
-categoriesRoutes.post("/", createCategoryController.handle);
+categoriesRoutes.post(
+  "/",
+  ensureAuthenticated,
+  ensureAdmin,
+  createCategoryController.handle,
+);
 
 categoriesRoutes.post(
   "/import",
@@ -24,6 +31,11 @@ categoriesRoutes.post(
   importCategoriesController.handle,
 );
 
-categoriesRoutes.get("/", listCategoriesController.handle);
+categoriesRoutes.get(
+  "/",
+  ensureAuthenticated,
+  ensureAdmin,
+  listCategoriesController.handle,
+);
 
 export { categoriesRoutes };
