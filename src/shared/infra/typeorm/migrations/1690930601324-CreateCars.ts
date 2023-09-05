@@ -1,7 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateCars1690930601324 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -27,11 +26,11 @@ export class CreateCars1690930601324 implements MigrationInterface {
           {
             name: "available",
             type: "boolean",
-            default: true
+            default: true,
           },
           {
             name: "license_plate",
-            type: "varchar"
+            type: "varchar",
           },
           {
             name: "fine_amount",
@@ -39,18 +38,18 @@ export class CreateCars1690930601324 implements MigrationInterface {
           },
           {
             name: "brand",
-            type: "varchar"
+            type: "varchar",
           },
           {
             name: "category_id",
             type: "uuid",
-            isNullable: true
+            isNullable: true,
           },
           {
             name: "created_at",
             type: "timestamp",
-            default: "now()"
-          }
+            default: "now()",
+          },
         ],
         foreignKeys: [
           {
@@ -59,15 +58,14 @@ export class CreateCars1690930601324 implements MigrationInterface {
             referencedColumnNames: ["id"],
             columnNames: ["category_id"],
             onDelete: "SET NULL",
-            onUpdate: "SET NULL"
-          }
-        ]
-      })
-    )
+            onUpdate: "SET NULL",
+          },
+        ],
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("cars")
+    await queryRunner.dropTable("cars");
   }
-
 }
