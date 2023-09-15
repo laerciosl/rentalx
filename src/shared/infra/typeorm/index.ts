@@ -6,11 +6,14 @@ dotenv.config();
 
 const connectDB = new DataSource({
   type: "postgres",
-  host: "172.20.0.2",
+  host: process.env.NODE_ENV === "test" ? "localhost" : "172.20.0.2",
   port: 5432,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
-  database: process.env.TYPEORM_DATABASE,
+  database:
+    process.env.NODE_ENV === "test"
+      ? "rentx_test"
+      : process.env.TYPEORM_DATABASE,
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
   entities: ["./src/modules/**/entities/*.ts"],
 });

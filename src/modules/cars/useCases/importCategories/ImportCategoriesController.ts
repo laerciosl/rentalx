@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { Request, Response } from "express";
 
 import { ImportCategoriesUseCase } from "./ImportCategoriesUseCase";
 
@@ -9,7 +9,7 @@ class ImportCategoriesController {
 
     const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase);
 
-    await importCategoriesUseCase.execute(file);
+    await importCategoriesUseCase.execute(file!);
 
     return response.status(201).send();
   }
