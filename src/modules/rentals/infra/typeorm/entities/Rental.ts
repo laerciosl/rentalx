@@ -22,7 +22,7 @@ class Rental {
   start_date!: Date;
 
   @Column()
-  end_date!: Date;
+  end_date?: Date;
 
   @CreateDateColumn()
   expected_return_date!: Date;
