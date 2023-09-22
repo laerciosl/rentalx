@@ -13,7 +13,7 @@
     "migration-create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create ./src/shared/infra/typeorm/migrations/",
     "migration-run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run -d ./src/shared/infra/typeorm/index.ts",
     "migration-revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert  -d ./src/shared/infra/typeorm/index.ts",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "seed-admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
   },
   "dependencies": {

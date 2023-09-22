@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.1.0",
   "info": {
     "title": "RentalX Documentation",
     "description": "This is an API Rent",
@@ -10,11 +10,129 @@
     }
   },
   "paths": {
-    "/categories": {
+    "/authenticate": {
       "post": {
-        "tags": ["Category"],
-        "summary": "Create a category",
-        "description": "Create a new category",
+        "tags": ["Authenticate"],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "email@email.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "user": {
+                      "name": "Fulano de tal",
+                      "email": "email@email.com"
+                    },
+                    "token": "laksdfojowfkefowjfaslkfdowjlfkjawoiefjaklsd"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
+    "/cars/available": {
+      "get": {
+        "tags": ["Cars"],
+        "summary": "List all available cars",
+        "description": "List all available cars",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "daily_rate": {
+                        "type": "number"
+                      },
+                      "license_plate": {
+                        "type": "string"
+                      },
+                      "fine_amount": {
+                        "type": "string"
+                      },
+                      "brand": {
+                        "type": "string"
+                      },
+                      "category_id": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "name": "Category name sample",
+                      "description": "Category description sample"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a car",
+        "description": "Create a new car",
+        "security": [
+          { "bearAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -26,11 +144,31 @@
                   },
                   "description": {
                     "type": "string"
+                  },
+                  "daily_rate": {
+                    "type": "number"
+                  },
+                  "license_plate": {
+                    "type": "string"
+                  },
+                  "fine_amount": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string"
                   }
                 },
                 "example": {
-                  "name": "Category name sample",
-                  "description": "Category description sample"
+                  "name": "Gol G3",
+                  "description": "Carro Gol G3",
+                  "daily_rate": 140.00,
+                  "license_plate": "ABC-5678",
+                  "fine_amount": "40",
+                  "brand": "Wolks",
+                  "category_id": "f5ca49a3-0a59-4f7c-b9b4-9e4412e213fd"
                 }
               }
             }
@@ -41,10 +179,93 @@
             "description": "Created"
           },
           "400": {
-            "description": "Category already exists!"
+            "description": "Car already exists!"
           }
         }
-      },
+      }
+    },
+    "/cars/specifications/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a new specification car",
+        "description": "Create a new specification car",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "specifications_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "specifications_id": [
+                    "2d73c7ff-7126-41d5-9335-efdec7384290"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car does not exists!"
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Upload images for a car",
+        "description": "Upload images for a car",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/categories": {
       "get": {
         "tags": ["Category"],
         "summary": "List all categories",
@@ -76,13 +297,53 @@
             }
           }
         }
-      }
+      },
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create a category",
+        "description": "Create a new category",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Category name sample",
+                  "description": "Category description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Category already exists!"
+          }
+        }
+      }      
     },
     "/categories/import": {
       "post": {
         "tags": ["Category"],
         "summary": "Upload a new Category",
         "description": "Upload a new category",
+        "security": [
+          { "bearAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -112,29 +373,139 @@
         }
       }
     },
-    "/specifications": {
+    "/rentals": {
       "post": {
-        "tags": ["Specifications"],
-        "summary": "Create a specification",
-        "description": "Create a new specification",
+        "tags": ["Rentals"],
+        "summary": "Create a rental",
+        "description": "Create a new rental car",
+        "security": [
+          { "bearAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Specification"
+                "type": "object",
+                "properties": {
+                  "expected_return_date": {
+                    "type": "string"
+                  },
+                  "car_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Gol G3",
+                  "description": "Carro Gol G3",
+                  "daily_rate": 140.00,
+                  "license_plate": "ABC-5678",
+                  "fine_amount": "40",
+                  "brand": "Wolks",
+                  "category_id": "f5ca49a3-0a59-4f7c-b9b4-9e4412e213fd"
+                }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Created"
           },
           "400": {
-            "description": "Specification already exists!"
+            "description": "Car is unavailable!"
           }
         }
-      },
+      }
+    },
+    "/rentals/devolution/{id}": {
+      "post": {
+        "tags": ["Rentals"],
+        "summary": "Devolution a rental",
+        "description": "Devolution a rental car",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expected_return_date": {
+                    "type": "string"
+                  },
+                  "car_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Gol G3",
+                  "description": "Carro Gol G3",
+                  "daily_rate": 140.00,
+                  "license_plate": "ABC-5678",
+                  "fine_amount": "40",
+                  "brand": "Wolks",
+                  "category_id": "f5ca49a3-0a59-4f7c-b9b4-9e4412e213fd"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car is unavailable!"
+          }
+        }
+      }
+    },
+    "/rentals/user": {
+      "get": {
+        "tags": ["Rentals"],
+        "summary": "List a rental car by user",
+        "description": "List a rental car by user",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expected_return_date": {
+                    "type": "string"
+                  },
+                  "car_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Gol G3",
+                  "description": "Carro Gol G3",
+                  "daily_rate": 140.00,
+                  "license_plate": "ABC-5678",
+                  "fine_amount": "40",
+                  "brand": "Wolks",
+                  "category_id": "f5ca49a3-0a59-4f7c-b9b4-9e4412e213fd"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car is unavailable!"
+          }
+        }
+      }
+    },
+    "/specifications": {
       "get": {
         "tags": ["Specifications"],
         "summary": "List all specifications",
@@ -166,6 +537,31 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": ["Specifications"],
+        "summary": "Create a specification",
+        "description": "Create a new specification",
+        "security": [
+          { "bearAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Specification already exists!"
+          }
+        }
       }
     },
     "/users": {
@@ -173,6 +569,9 @@
         "tags": ["User"],
         "summary": "Create a new account",
         "description": "Create a new account",
+        "security": [
+          { "bearAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -217,6 +616,9 @@
         "tags": ["User"],
         "summary": "Upload avatar account",
         "description": "Upload avatar account",
+        "security": [
+          { "bearAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -241,72 +643,6 @@
           }
         }
       }
-    },
-    "/authenticate": {
-      "post": {
-        "tags": ["User"],
-        "summary": "Authenticate user",
-        "description": "Authenticate user",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "email": "email@email.com",
-                  "password": "123456"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        }
-                      }
-                    },
-                    "token": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "user": {
-                      "name": "Fulano de tal",
-                      "email": "email@email.com"
-                    },
-                    "token": "laksdfojowfkefowjfaslkfdowjlfkjawoiefjaklsd"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "User already exists!"
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -323,6 +659,15 @@
       "example": {
         "name": "Specification name sample",
         "description": "Specification description sample"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
