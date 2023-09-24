@@ -1,9 +1,9 @@
 import { Repository } from "typeorm";
 
-import connectDB from "@shared/infra/typeorm/index";
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { User } from "@modules/accounts/infra/typeorm/entities/User";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import connectDB from "@shared/infra/typeorm/index";
 
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;

@@ -10,7 +10,7 @@ import { usersRoutes } from "./users.routes";
 const router = Router();
 
 router.use("/users", usersRoutes);
-router.use("/authenticate", authenticateRoutes);
+router.use("/", authenticateRoutes);
 router.use("/categories", categoriesRoutes);
 router.use("/specifications", specificationsRoutes);
 router.use("/cars", carsRoutes);
