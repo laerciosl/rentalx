@@ -55,8 +55,6 @@ class SendForgotPasswordMailUseCase {
       link: `${process.env.FORGOT_MAIL_URL}${token}`,
     };
 
-    console.log("teste");
-
     await this.mailProvider.sendMail(email, subject, variables, templatePath);
   }
 }
