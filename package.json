@@ -20,6 +20,7 @@
     "@aws-sdk/client-s3": "^3.418.0",
     "aws-sdk": "^2.1464.0",
     "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
     "csv-parse": "^5.4.0",
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",
