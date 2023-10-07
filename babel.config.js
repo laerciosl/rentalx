@@ -8,27 +8,27 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "@modules": [
+          "@modules": 
             "./src/modules"
-          ],
-          "@config": [
+          ,
+          "@config": 
             "./src/config"
-          ],
-          "@shared": [
+          ,
+          "@shared":
             "./src/shared"
-          ],
-          "@errors": [
+          ,
+          "@errors":
             "./src/errors"
-          ],
-          "@utils": [
+          ,
+          "@utils":
             "./src/utils"
-          ],
-          "@database": [
+          ,
+          "@database":
             "./src/database"
-          ],
-          "@middleware": [
+          ,
+          "@middleware":
             "./src/middlewares"
-          ]
+          
         }
       }
     ],
