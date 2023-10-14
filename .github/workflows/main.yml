@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispathc:
+
+jobs:
+  build:
+    runs-on: ubunto-latest
+
+    steps:
+      - uses: actions/checkeout@v2
+
+      - name: Setup NodeJs
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.5.0
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+        
+      - uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "., !node_modules"
+          target: "test"
