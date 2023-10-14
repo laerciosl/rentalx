@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-  workflow_dispathc:
-
 jobs:
   build:
     runs-on: ubunto-latest
