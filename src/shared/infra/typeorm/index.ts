@@ -6,7 +6,6 @@ dotenv.config();
 
 const connectDB = new DataSource({
   type: "postgres",
-  host: process.env.NODE_ENV === "test" ? "localhost" : "172.20.0.2",
   port: 5432,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
