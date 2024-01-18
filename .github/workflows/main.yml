@@ -45,6 +45,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app/rentalx
-            yarn
+            npm
             ./node_modules/typeorm/cli migration:run -d ./dist/shared/infra/typeorm/index.js
             pm2 restart rentx_api
