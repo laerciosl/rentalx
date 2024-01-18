@@ -49,8 +49,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            export PATH="$PATH:/home/***/.nvm/versions/node/v20.5.0/bin/"
             cd ~/app/rentalx
-            npm install -g yarn
             yarn
             ./node_modules/typeorm/cli migration:run -d ./dist/shared/infra/typeorm/index.js
             pm2 restart rentx_api
