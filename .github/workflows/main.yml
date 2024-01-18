@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.5.0
+      
+      - name: Setup yarn
+        run: npm install -g yarn
 
       - name: Install Dependencies
         run: yarn
@@ -45,6 +48,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app/rentalx
-            npm
+            yarn
             ./node_modules/typeorm/cli migration:run -d ./dist/shared/infra/typeorm/index.js
             pm2 restart rentx_api
