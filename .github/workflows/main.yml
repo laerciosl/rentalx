@@ -48,5 +48,5 @@ jobs:
             cd ~/app/rentalx
             echo $PATH
             yarn
-            ./node_modules/typeorm/cli migration:run -d ./dist/shared/infra/typeorm/index.js
+            ./node_modules/typeorm/ migration:run -d ./dist/shared/infra/typeorm/index.js
             pm2 restart rentx_api
