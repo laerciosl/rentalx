@@ -35,11 +35,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
           target: "~/app/rentalx"
-      
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
 
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -50,6 +45,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app/rentalx
+            echo $PATH
             yarn
             ./node_modules/typeorm/cli migration:run -d ./dist/shared/infra/typeorm/index.js
             pm2 restart rentx_api
