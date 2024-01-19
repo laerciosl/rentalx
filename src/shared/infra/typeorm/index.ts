@@ -14,7 +14,7 @@ const connectDB = new DataSource({
       ? "rentx_test"
       : process.env.TYPEORM_DATABASE,
   migrations: [String(process.env.TYPEORM_MIGRATIONS)],
-  entities: [String(process.env.TYPEORM_MIGRATIONS_DIR)],
+  entities: [String(process.env.TYPEORM_ENTITIES)],
 });
 
 connectDB
