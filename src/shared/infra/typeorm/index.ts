@@ -15,6 +15,7 @@ const connectDB = new DataSource({
       : process.env.TYPEORM_DATABASE,
   migrations: [String(process.env.TYPEORM_MIGRATIONS)],
   entities: [String(process.env.TYPEORM_ENTITIES)],
+  synchronize: false,
 });
 
 connectDB
