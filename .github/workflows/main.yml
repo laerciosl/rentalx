@@ -49,4 +49,5 @@ jobs:
             echo $PATH
             yarn
             ./node_modules/typeorm/cli.js migration:run -d ./dist/shared/infra/typeorm/index.js
+            node dist/shared/infra/typeorm/seed/admin.js
             pm2 restart rentx_api
