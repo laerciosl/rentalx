@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"totvsLanguageServer.welcomePage": false
+		"totvsLanguageServer.welcomePage": false,
+		"totvsLanguageServer.editor.linter.includes": "/home/laercio/Documents/desenvolvimento/gitlab/sg/sg-advpl/src/includes;;/home/laercio/Documents/totvs/includes_v12"
 	}
 }

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "target": "es2022",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "commonjs",
+    "module": "CommonJS",
     "baseUrl": "./src",
     "paths": {
       "@modules/*": [

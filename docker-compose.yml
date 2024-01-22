@@ -17,22 +17,33 @@ services:
       - ${POSTGRES_DB_VOLUME}:/data/postgres
     networks:
       - rentalx-network
-  app:
-    build: .
-    container_name: rentalx
+
+  redis:
+    image: redis
+    container_name: ${REDIS_CONTAINER_NAME}
     env_file:
       - .env
-    ports:
-      - ${RENTX_APP_PORT}:${RENTX_APP_PORT}
-      - ${RENTX_APP_PORT_DEBUG}:${RENTX_APP_PORT_DEBUG}
-    volumes:
-      - ${RENTX_APP_VOLUME}:/usr/app
+    ports: 
+      - ${REDIS_PORT}:${REDIS_PORT}
     networks:
       - rentalx-network
-    links:
-      - database_rentalx
-    depends_on:
-      - database_rentalx
+      
+  # app:
+  #   build: .
+  #   container_name: rentalx
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - ${RENTX_APP_PORT}:${RENTX_APP_PORT}
+  #     - ${RENTX_APP_PORT_DEBUG}:${RENTX_APP_PORT_DEBUG}
+  #   volumes:
+  #     - ${RENTX_APP_VOLUME}:/usr/app
+  #   networks:
+  #     - rentalx-network
+  #   links:
+  #     - database_rentalx
+  #   depends_on:
+  #     - database_rentalx
 
 volumes:
   pgdata:
