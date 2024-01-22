@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response } from "express";
 import { RateLimiterRedis } from "rate-limiter-flexible";
 import * as redis from "redis";
-import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "@shared/errors/AppError";
 
@@ -32,10 +32,8 @@ export default async function rateLimiter(
     const ip =
       request.headers["x-forwarded-for"] || request.socket.remoteAddress;
     await limiter.consume(ip);
-    console.log(limiter);
     next();
   } catch (err) {
-    console.log(err);
     throw new AppError("Too Many Requests", 429);
   }
 }
